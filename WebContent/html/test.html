@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <title>嗨！有人送你VIP咯</title>
+    <script type="text/javascript" src="https://static.qupeiyin.com/Home/js/flexible_css.js?2017041817126"></script>
+    <script type="text/javascript" src="https://static.qupeiyin.com/Home/js/flexible.js?2017041817126"></script>
+    <script type="text/javascript" src="https://static.qupeiyin.com/Home/js/jquery.js?2017041817126"></script>
+    <link type="text/css" href="style.css" rel="stylesheet" />
+</head>
+<body>
+<div class="main">
+    <div class="pic-2"></div>
+    <div class="pic-3">
+        <dl class="clearfix">
+            <dt><img src="avatar_default.png" alt="" /></dt>
+            <dd>kevin</dd>
+        </dl>
+    </div>
+    <div class="pic-4">
+        <!-- 免费领取VIP -->
+        <div class="u-form js-form-receive">
+            <h2>免费领取VIP</h2>
+            <div class="box"><input type="input" name="mobile" class="input" placeholder="请输入手机号" /></div>
+            <div class="btn"><a href="javascript:;" class="booking">立即领取VIP</a></div>
+        </div>
+        <!-- 领取成功 -->
+        <div class="u-form none js-form-success">
+            <h2>领取成功</h2>
+            <div class="box">
+                <p>恭喜你VIP已经发送至 <span id="spMobile"></span></p>
+                <p>登录app使用手机号注册即可</p>
+            </div>
+            <div class="btn"><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.ishowedu.peiyin&ckey=CK1336395186638" class="download">点击下载开心学汉字</a></div>
+        </div>
+    </div>
+    <!-- 介绍 -->
+    <!--<div class="vip-info">-->
+        <!--<h2>关于VIP的介绍</h2>-->
+        <!--<ul class="clearfix">-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-1.png" alt="" /><p>专属身份标识</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-2.png" alt="" /><p>专业打分功能</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-3.png" alt="" /><p>精准单词翻译</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-4.png" alt="" /><p>独家个性水印</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-5.png" alt="" /><p>专属VIP内容</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-6.png" alt="" /><p>下载作品</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-7.png" alt="" /><p>付费折扣</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-8.png" alt="" /><p>中高考真题</p></li>-->
+            <!--<li><img src="https://static.qupeiyin.com/Home/images/5.30/ico-9.png" alt="" /><p>期待更多特权</p></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+</div>
+</div>
+<!-- toast提示 -->
+<div class="toast"><span></span></div>
+<script type="text/javascript">
+    function toast(v){
+        $(".toast").show();
+        $(".toast").find("span").text(v);
+        setTimeout(function(){
+            $(".toast").hide();
+        }, 1000);
+    };
+
+    $(document).ready(function(){
+
+        //点击领取
+        $(".booking").click(function(){
+            var mobile = $("input[name='mobile']").val();
+            var mobileReg =/^1[34578]\d{9}$/;
+
+            if(!mobileReg.test(mobile)) {
+                toast('请输入正确的手机号');
+                return;
+            }
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                    var res = xmlHttp.responseText;
+                    alert(res);
+                }
+
+            }
+            xmlHttp.open("GET","http://localhost:8080/TEM_Test/add?phoneNum="+mobile,true);
+            xmlHttp.send();
+            /*$.get('/index.php?m=home&c=activity_invitation&a=booking&u=MDAwMDAwMDAwMLCHsqyCe7ber6eMcg',{'mobile':mobile},function(rst){
+
+                if(rst.status === 1)
+                {
+                    $("#spMobile").text(mobile);
+                    $(".js-form-receive").hide();
+                    $(".js-form-success").show();
+                    //$(".u-form").show();
+
+                }
+                else
+                {
+                    toast(rst.info);
+                }
+            },'json');*/
+
+        });
+    });
+</script>
+</body>
+</html>
